@@ -137,6 +137,8 @@ IMG;
         $extensions = ['png', 'jpg', 'gif', 'jpeg'];
         $html = '';
         $files = scandir($path);
+	$cnt = 0;
+        $limit = intval($_GET['limit']);
         foreach ($files as $file) {
             if ($file === '.' || $file === '..' ) {
                 continue;
@@ -162,6 +164,10 @@ IMG;
                 [$basename, $thumbImg, $basename . ' - ' . $sizeCaption],
                 $this->imgComponent
             );
+	    
+	    $cnt += 1;
+            if ($limit > 0 && $cnt >= $limit){
+                break;
         }
 
         if ($html === '') {
