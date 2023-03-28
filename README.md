@@ -1,5 +1,6 @@
 ## Revision history by simonchen
-Appending the parameterized path to the source of the &lt;img&gt;
+- Appending the parameterized path to the source of the &lt;img&gt;
+- New parameter 'limit' support
 
 ## Simple Image Browser
 
