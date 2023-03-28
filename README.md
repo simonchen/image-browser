@@ -1,5 +1,5 @@
 ## Revision history by simonchen
-Appending the parameterized path to the source of the <img>
+Appending the parameterized path to the source of the &lt;img&gt;
 
 ## Simple Image Browser
 
