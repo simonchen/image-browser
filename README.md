@@ -1,3 +1,6 @@
+## Revision history by simonchen
+Appending the parameterized path to the source of the <img>
+
 ## Simple Image Browser
 
 A single PHP file and less then 300 lines of code of very simple image browser. It is intended to run with PHP Built-in web server but you can also use real web server such as Apache.
