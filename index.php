@@ -4,6 +4,8 @@
  *
  * @author Rio Astamal <rio@rioastamal.net>
  * @link https://github.com/rioastamal/image-browser
+ * 
+ * Appending the parameterized path to the source of the <img> // by simonchen [2023-3-28]
  */
 use SplFileInfo as FileInfo;
 
@@ -46,7 +48,8 @@ h1 {
     margin-bottom: 0.2em;
 }
 img {
-    width: 100%;
+    float: left;
+    margin: 5px;
 }
 .image-wrapper a {
     text-decoration:none;
@@ -85,8 +88,7 @@ BODY;
      */
     protected $imgComponent = <<<IMG
 <div class="image-wrapper">
-    <a href="{{IMG_SRC}}"><img src="{{IMG_SRC_THUMB}}"></a>
-    <div class="caption">{{IMG_NAME}}</div>
+    <a href="{{IMG_SRC}}"><img src="{{IMG_SRC_THUMB}}" alt="{{IMG_NAME}}"></a>
 </div>
 IMG;
 
@@ -134,7 +136,6 @@ IMG;
     {
         $extensions = ['png', 'jpg', 'gif', 'jpeg'];
         $html = '';
-
         $files = scandir($path);
         foreach ($files as $file) {
             if ($file === '.' || $file === '..' ) {
@@ -147,9 +148,13 @@ IMG;
                 continue;
             }
 
-            $basename = $fileInfo->getBasename();
-            $size = round($fileInfo->getSize() / (1024 * 1024), 1);
-            $sizeCaption = sprintf('Size: %sM', $size);
+	    if (!empty($_GET['path'])){
+                $basename = $_GET['path'] . '/' . $fileInfo->getBasename();
+	    }else{
+		$basename = $fileInfo->getBasename();
+	    }
+            $size = round($fileInfo->getSize() / 1024, 1);
+            $sizeCaption = sprintf('Size: %skb', $size);
             $thumbImg = $basename . '?thumb';
 
             $html .= str_replace(
@@ -160,7 +165,7 @@ IMG;
         }
 
         if ($html === '') {
-            $html = '<p>There is no image found.</p>';
+            $html = '<p>There is no image found, Please try to append parameter - path in URL (e.g, ?path=/dp/photo/twt/01)</p>';
         }
 
         return $html;
